@@ -12,10 +12,10 @@ batch_Routes.get("/batches", async (req, res) => {
   }
 });
 
-batch_Routes.get("/batch", async (req, res) => {
+batch_Routes.get("/batch/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const response = await batchModel.find({_id:id}).exec();
+    const response = await batchModel.find({ BatchCode: id }).exec();
     res.send(response);
   } catch (error) {
     res.send(error);
@@ -37,32 +37,35 @@ batch_Routes.put("/updatebatch", async (req, res) => {
   try {
     const id = req.params.id;
     const data = req.body;
-    const response = await batchModel.updateOne({ _id: id },data);
+    const response = await batchModel.updateOne({ _id: id }, data);
     res.send(response);
   } catch (error) {
     res.send(error);
   }
 });
 
-batch_Routes.delete("/deletebatch", async (req, res)=>{
-    try {
-        const id = req.params.id;
-        const response = await batchModel.findOneAndDelete({ _id: id });
-        res.send(response);
-      } catch (error) {
-        res.send(error);
-      }
-})
-
-batch_Routes.patch("/batchAttendence", async (req, res) => {
+batch_Routes.delete("/deletebatch", async (req, res) => {
   try {
     const id = req.params.id;
-    const data = req.body;
-    console.log(id,data)
-    const response = await batchModel.findByIdAndUpdate( id,data,{new:true});
+    const response = await batchModel.findOneAndDelete({ _id: id });
     res.send(response);
   } catch (error) {
     res.send(error);
   }
 });
-module.exports=batch_Routes;
+
+batch_Routes.patch("/batchAttendence:id", async (req, res) => {
+  try {
+    const batchId = req.params.id;
+    const data = req.body;
+    const response = await trainerModel.findOneAndUpdate(
+      { id: Number(batchId) },
+      { $set: data },
+      { new: true }
+    );
+    console.log(response);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+module.exports = batch_Routes;

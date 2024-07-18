@@ -4,21 +4,21 @@ const trainerSchema = mongoose.Schema({
   username: String,
   email: String,
   password: String,
-  Name:String,
+  Name: String,
   ContactNo: String,
-  role:String,
-  Specialization:String,
+  role: String,
+  Specialization: String,
   Address: String,
-  JoiningDate:String,
+  JoiningDate: String,
   gender: String,
   dob: String,
-  id: String,
+  id: Number,
   image: String,
-  loginTime:String,
-  logoutTime:String,
-  ActiveBatches:String
+  loginTime: String,
+  logoutTime: String,
+  ActiveBatches: String,
 });
 
-const trainerModel=mongoose.model("Trainers",trainerSchema);
+const trainerModel = mongoose.model("Trainers", trainerSchema);
 
-module.exports=trainerModel;
+module.exports = trainerModel;

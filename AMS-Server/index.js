@@ -25,12 +25,12 @@ mongoose.connection.once("open",()=>{
 
 app.use("/AMS",trainer_Routes);
 app.use("/AMS",tracker_Routes);
-app.use("/AMS",hr_Routes);
+app.use("/AMS",hr_Routes);  
 app.use("/AMS",student_Routes);
 app.use("/AMS",manager_Routes);
 app.use("/AMS",batch_Routes);
 
 app.listen(4520,()=>{
-    console.log("Server is running on port 4500");
+    console.log("Server is running on port 4520");
 })
 

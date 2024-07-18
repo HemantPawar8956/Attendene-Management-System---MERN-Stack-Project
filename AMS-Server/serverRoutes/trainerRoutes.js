@@ -12,17 +12,16 @@ trainer_Routes.get("/trainers", async (req, res) => {
   }
 });
 
-trainer_Routes.get("/gettrainer", async (req, res) => {
+trainer_Routes.get("/gettrainer/:id", async (req, res) => {
   try {
-    const id = req.params.id
+    const id = req.params.id;
     const response = await trainerModel.find({ id: id });
-    console.log(response)
+    console.log(response);
     res.send(response);
   } catch (error) {
     res.send(error);
   }
 });
-
 
 trainer_Routes.post("/createTrainer", async (req, res) => {
   try {
@@ -39,10 +38,26 @@ trainer_Routes.put("/updateTrainer", async (req, res) => {
   try {
     const id = req.params.id;
     const data = req.body;
-    const response = await trainerModel.updateOne({ _id: id }, data);
+    const response = await trainerModel.updateOne({ id: id }, data);
     res.send(response);
   } catch (error) {
     res.send(error);
+  }
+});
+
+trainer_Routes.patch("/updatetrainertiming/:id", async (req, res) => {
+  try {
+    const trainerId = req.params.id;
+    const data = req.body;
+    console.log(data, trainerId);
+    const response = await trainerModel.findOneAndUpdate(
+      { id: Number(trainerId) },
+      { $set: data },
+      { new: true }
+    );
+    console.log(response);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
