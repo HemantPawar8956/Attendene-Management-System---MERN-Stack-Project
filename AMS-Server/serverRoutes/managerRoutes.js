@@ -12,6 +12,7 @@ manager_Routes.get("/managers", async (req, res) => {
   }
 });
 
+
 manager_Routes.post("/createmanager", async (req, res) => {
   try {
     const data = req.body;
@@ -23,6 +24,7 @@ manager_Routes.post("/createmanager", async (req, res) => {
   }
 });
 
+
 manager_Routes.put("/updatemanager", async (req, res) => {
   try {
     const id = req.params.id;
@@ -33,6 +35,7 @@ manager_Routes.put("/updatemanager", async (req, res) => {
     res.send(error);
   }
 });
+
 
 manager_Routes.delete("/deletemanager", async (req, res)=>{
     try {
